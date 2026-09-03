@@ -29,24 +29,31 @@ allprojects {
 }
 
 subprojects {
+    // Fabric client (MC 26.2) needs Java 25; server/bridge stay on 8 for 1.16.5+.
+    val clientLoader = name == "fabric"
+    val release = if (clientLoader) 25 else 8
+    val target = if (clientLoader) {
+        org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25
+    } else {
+        org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+    }
+
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        options.release.set(25)
+        options.release.set(release)
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
+            jvmTarget.set(target)
             freeCompilerArgs.add("-jvm-default=enable")
         }
     }
 }
+
 repositories {
     mavenCentral()
 }
 dependencies {
     testImplementation(kotlin("test"))
-}
-kotlin {
-    jvmToolchain(8)
 }

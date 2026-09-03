@@ -26,6 +26,8 @@
 | `client` | Клиентский контроллер состояния |
 | `fabric` | owo-ui экран + хоткей `G` (Minecraft **26.2**, Java **25**) |
 
+**JVM:** server/bridge jar — bytecode **Java 8** (запуск с 8+ / 1.16.5+). Fabric-клиент — **Java 25** (MC 26.2).
+
 ## Установка
 
 ### Сервер / прокси
@@ -70,7 +72,7 @@ Universal server jar (все серверные/прокси платформы)
 - `dist-server/build/libs/pv-addon-groups-gui-1.0.0.jar`
 - `fabric/build/libs/pv-addon-groups-gui-fabric-*.jar`
 
-Нужны **JDK 25** и сеть для зависимостей.
+Нужны **JDK 25** для сборки (клиент Loom) и сеть для зависимостей. Server jar при этом компилируется в **Java 8** bytecode.
 
 ## Важно
 

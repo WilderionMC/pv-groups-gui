@@ -4,7 +4,7 @@ import com.google.common.collect.Sets
 import su.plo.slib.api.chat.component.McTextComponent
 import su.plo.slib.api.entity.player.McGameProfile
 import su.plo.voice.api.PlasmoVoice
-import su.plo.voice.api.server.PlasmoVoiceServer
+import su.plo.voice.api.server.PlasmoBaseVoiceServer
 import su.plo.voice.api.server.player.VoicePlayer
 import su.plo.voice.groups.GroupsAddon
 import su.plo.voice.groups.GroupsManager
@@ -631,8 +631,9 @@ class GroupsAddonService(
         PlayerRef(profile.id, profile.name)
 
     private fun voicePlayerByName(name: String): VoicePlayer? {
-        val server = voice as? PlasmoVoiceServer ?: return null
-        return server.playerManager.getPlayerByName(name).orElse(null)
+        // PlasmoVoiceServer is server-only; on Velocity the class is absent and `as?` would NCDFE.
+        val base = voice as? PlasmoBaseVoiceServer ?: return null
+        return base.playerManager.getPlayerByName(name).orElse(null)
     }
 
     private fun printGroupsDivider(source: su.plo.slib.api.command.McCommandSource) {

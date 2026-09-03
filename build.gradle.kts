@@ -30,12 +30,16 @@ allprojects {
 
 subprojects {
     // Fabric client (MC 26.2) needs Java 25; server/bridge stay on 8 for 1.16.5+.
-    val clientLoader = name == "fabric"
-    val release = if (clientLoader) 25 else 8
-    val target = if (clientLoader) {
-        org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25
-    } else {
-        org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
+    val clientLoader = name.startsWith("fabric")
+    val release = when {
+        name == "fabric" || name == "fabric-26.1.2" -> 25
+        clientLoader -> 21
+        else -> 8
+    }
+    val target = when (release) {
+        25 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25
+        21 -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+        else -> org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8
     }
 
     tasks.withType<JavaCompile>().configureEach {

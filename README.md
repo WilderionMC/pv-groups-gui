@@ -24,9 +24,20 @@
 | `velocity` | PROXY-scope addon (Velocity/BungeeCord) |
 | `dist-server` | Один universal jar (как у `pv-addon-groups`) |
 | `client` | Клиентский контроллер состояния |
-| `fabric` | owo-ui экран + хоткей `G` (Minecraft **26.2**, Java **25**) |
+| `fabric` / `fabric-*` | owo-ui экран + хоткей `G` (только Fabric, с **1.20.6**) |
 
-**JVM:** server/bridge jar — bytecode **Java 8** (запуск с 8+ / 1.16.5+). Fabric-клиент — **Java 25** (MC 26.2).
+### Клиентская матрица (Fabric + owo-lib)
+
+Одна нода на линию Minecraft — последний патч:
+
+| Модуль | Minecraft | Java | owo-lib |
+|--------|-----------|------|---------|
+| `fabric-1.20.6` | 1.20.6 | 21 | `0.12.9+1.20.5` |
+| `fabric-1.21.11` | 1.21.11 | 21 | `0.13.0+1.21.11` |
+| `fabric-26.1.2` | 26.1.2 | 25 | `0.13.1+26.1` |
+| `fabric` | 26.2 | 25 | `0.13.1+26.2` |
+
+**JVM:** server/bridge jar — bytecode **Java 8** (запуск с 8+ / 1.16.5+). Fabric-клиент — **Java 21** (1.20–1.21) или **Java 25** (26.x).
 
 ## Установка
 
@@ -43,8 +54,8 @@ Entrypoints генерируются плагином `su.plo.voice.plugin.entry
 
 ### Клиент
 
-1. Plasmo Voice **2.1.16+** (Fabric **26.2**).
-2. `fabric/build/libs/pv-addon-groups-gui-fabric-*.jar` (owo-lib внутри jar-in-jar).
+1. Plasmo Voice **2.1.16+** (версия Minecraft должна совпадать с клиентским jar).
+2. Нужный jar из `fabric*/build/libs/pv-addon-groups-gui-fabric-*.jar` (owo-lib внутри jar-in-jar).
 
 ## Использование
 
@@ -60,19 +71,28 @@ Universal server jar (все серверные/прокси платформы)
 ./gradlew :dist-server:shadowJar
 ```
 
-Клиент (Fabric, Minecraft 26.2, Java 25):
+Клиент (Fabric + owo, с 1.20.6):
+
+```bash
+./gradlew :fabric:jar :fabric-26.1.2:jar :fabric-1.21.11:jar :fabric-1.20.6:jar -PwithClient=true
+```
+
+Только актуальная линия (26.2):
 
 ```bash
 ./gradlew :fabric:jar -PwithClient=true
 ```
 
-В **IntelliJ** модуль `fabric` подключается при Gradle Sync автоматически. Если навигации нет — **Reload Gradle Project**. Можно явно задать `-PwithClient=true` в Settings → Build → Gradle → Gradle project properties.
+В **IntelliJ** модули `fabric*` подключаются при Gradle Sync автоматически. Если навигации нет — **Reload Gradle Project**. Можно явно задать `-PwithClient=true` в Settings → Build → Gradle → Gradle project properties.
 
 Артефакты:
 - `dist-server/build/libs/pv-addon-groups-gui-1.0.0.jar`
-- `fabric/build/libs/pv-addon-groups-gui-fabric-*.jar`
+- `fabric/build/libs/pv-addon-groups-gui-fabric-26.2-*.jar`
+- `fabric-26.1.2/build/libs/pv-addon-groups-gui-fabric-26.1.2-*.jar`
+- `fabric-1.21.11/build/libs/pv-addon-groups-gui-fabric-1.21.11-*.jar`
+- `fabric-1.20.6/build/libs/pv-addon-groups-gui-fabric-1.20.6-*.jar`
 
-Нужны **JDK 25** для сборки (клиент Loom) и сеть для зависимостей. Server jar при этом компилируется в **Java 8** bytecode.
+Нужны **JDK 25** для сборки (клиент Loom 26.x) и сеть для зависимостей. Server jar при этом компилируется в **Java 8** bytecode.
 
 ## Важно
 

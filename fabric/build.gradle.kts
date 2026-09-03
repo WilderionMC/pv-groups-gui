@@ -29,20 +29,26 @@ dependencies {
 tasks.processResources {
     val modVersion = project.version.toString()
     val pvVersion = project.property("pv_version").toString()
+    val mcVersion = project.property("minecraft_version").toString()
+    val javaVersion = project.property("java_version").toString()
     inputs.property("version", modVersion)
     inputs.property("pv_version", pvVersion)
+    inputs.property("minecraft_version", mcVersion)
+    inputs.property("java_version", javaVersion)
     filesMatching("fabric.mod.json") {
         expand(
             mapOf(
                 "version" to modVersion,
                 "pv_version" to pvVersion,
+                "minecraft_version" to mcVersion,
+                "java_version" to javaVersion,
             )
         )
     }
 }
 
 tasks.jar {
-    archiveBaseName.set("pv-addon-groups-gui-fabric")
+    archiveBaseName.set("pv-addon-groups-gui-fabric-26.2")
 }
 
 java {

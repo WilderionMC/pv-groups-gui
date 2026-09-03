@@ -40,9 +40,6 @@ class FabricGroupsGuiMod : ClientModInitializer {
                 }
             }
         }
-
-        GroupsSpeakingOverlayConfigStorage.reload()
-        GroupsSpeakingOverlayHud.register()
     }
 
     companion object {

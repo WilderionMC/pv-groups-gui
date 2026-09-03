@@ -209,37 +209,6 @@
                                     </surface>
                                 </scroll>
 
-                                <flow-layout direction="horizontal" id="overlay-actions">
-                                    <children>
-                                        <button id="overlay-toggle-button">
-                                            <text>👁</text>
-                                            <sizing>
-                                                <horizontal method="fixed">20</horizontal>
-                                            </sizing>
-                                        </button>
-                                        <button id="overlay-position-button">
-                                            <text>⌖</text>
-                                            <sizing>
-                                                <horizontal method="fixed">20</horizontal>
-                                            </sizing>
-                                        </button>
-                                        <button id="overlay-layout-button">
-                                            <text>↔</text>
-                                            <sizing>
-                                                <horizontal method="fixed">20</horizontal>
-                                            </sizing>
-                                        </button>
-                                    </children>
-                                    <gap>4</gap>
-                                    <horizontal-alignment>center</horizontal-alignment>
-                                    <sizing>
-                                        <horizontal method="fill">100</horizontal>
-                                    </sizing>
-                                    <margins>
-                                        <top>4</top>
-                                    </margins>
-                                </flow-layout>
-
                                 <flow-layout direction="horizontal" id="group-actions">
                                     <children>
                                         <flow-layout direction="horizontal" id="group-actions-left">

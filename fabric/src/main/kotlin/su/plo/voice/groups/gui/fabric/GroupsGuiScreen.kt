@@ -17,8 +17,6 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.component.ResolvableProfile
 import su.plo.voice.groups.gui.client.GroupsGuiController
-import su.plo.voice.groups.gui.client.SpeakingOverlayAnchor
-import su.plo.voice.groups.gui.client.SpeakingOverlayLayout
 import su.plo.voice.groups.gui.client.GuiClientState
 import su.plo.voice.groups.gui.client.GuiStateListener
 import su.plo.voice.groups.gui.client.StatusText
@@ -121,9 +119,6 @@ class GroupsGuiScreen(
     private lateinit var confirmTransferButton: ButtonComponent
     private lateinit var confirmYesButton: ButtonComponent
     private lateinit var confirmNoButton: ButtonComponent
-    private lateinit var overlayToggleButton: ButtonComponent
-    private lateinit var overlayPositionButton: ButtonComponent
-    private lateinit var overlayLayoutButton: ButtonComponent
 
     override fun build(root: FlowLayout) {
         rootLayout = root
@@ -177,9 +172,6 @@ class GroupsGuiScreen(
         confirmTransferButton = root.childById(ButtonComponent::class.java, "confirm-transfer-button")
         confirmYesButton = root.childById(ButtonComponent::class.java, "confirm-yes-button")
         confirmNoButton = root.childById(ButtonComponent::class.java, "confirm-no-button")
-        overlayToggleButton = root.childById(ButtonComponent::class.java, "overlay-toggle-button")
-        overlayPositionButton = root.childById(ButtonComponent::class.java, "overlay-position-button")
-        overlayLayoutButton = root.childById(ButtonComponent::class.java, "overlay-layout-button")
 
         nameField.setHint(Component.translatable(GuiLang.HINT_NAME))
         passwordField.setHint(Component.translatable(GuiLang.HINT_PASSWORD_CREATE))
@@ -221,9 +213,6 @@ class GroupsGuiScreen(
         root.childById(ButtonComponent::class.java, "invite-back-button").hint(GuiLang.TOOLTIP_BACK)
         confirmYesButton.hint(GuiLang.TOOLTIP_CONFIRM_YES)
         confirmNoButton.hint(GuiLang.TOOLTIP_CONFIRM_NO)
-        overlayToggleButton.hint(GuiLang.TOOLTIP_OVERLAY_TOGGLE)
-        overlayPositionButton.hint(GuiLang.TOOLTIP_OVERLAY_POSITION)
-        overlayLayoutButton.hint(GuiLang.TOOLTIP_OVERLAY_LAYOUT)
         saveSettingsButton.hint(GuiLang.TOOLTIP_SAVE)
         removePasswordButton.hint(GuiLang.TOOLTIP_REMOVE_PASSWORD)
         confirmTransferButton.hint(GuiLang.TOOLTIP_CONFIRM_TRANSFER)
@@ -329,26 +318,6 @@ class GroupsGuiScreen(
         confirmYesButton.onPress { confirmPendingAction() }
         confirmNoButton.onPress { cancelConfirm() }
 
-        overlayToggleButton.onPress {
-            val updated = GroupsSpeakingOverlayConfigStorage.config.copy(
-                enabled = !GroupsSpeakingOverlayConfigStorage.config.enabled,
-            )
-            GroupsSpeakingOverlayConfigStorage.save(updated)
-            syncOverlayControls()
-        }
-        overlayPositionButton.onPress {
-            val current = GroupsSpeakingOverlayConfigStorage.config
-            val updated = current.copy(anchor = current.anchor.next())
-            GroupsSpeakingOverlayConfigStorage.save(updated)
-            syncOverlayControls()
-        }
-        overlayLayoutButton.onPress {
-            val current = GroupsSpeakingOverlayConfigStorage.config
-            val updated = current.copy(layout = current.layout.toggle())
-            GroupsSpeakingOverlayConfigStorage.save(updated)
-            syncOverlayControls()
-        }
-        syncOverlayControls()
 
         // Detach all views; showView mounts exactly one
         viewsHost.clearChildren()
@@ -489,7 +458,6 @@ class GroupsGuiScreen(
                     !busy && current != null && canOpenSettings(current),
                 )
                 disbandButton.active(!busy && canManage)
-                syncOverlayControls()
             }
             View.SETTINGS -> {
                 settingsStatus.text(if (status != null) statusComponent(status) else Component.empty())
@@ -991,59 +959,6 @@ class GroupsGuiScreen(
         setTooltip(Tooltip.create(Component.translatable(key)))
     }
 
-    private fun syncOverlayControls() {
-        if (!::overlayToggleButton.isInitialized) return
-        val cfg = GroupsSpeakingOverlayConfigStorage.config
-        overlayToggleButton.setMessage(
-            if (cfg.enabled) {
-                symbol("👁", ChatFormatting.GREEN)
-            } else {
-                symbol("👁", ChatFormatting.DARK_GRAY)
-            },
-        )
-        overlayPositionButton.setTooltip(
-            Tooltip.create(
-                Component.translatable(GuiLang.TOOLTIP_OVERLAY_POSITION)
-                    .append(" ")
-                    .append(Component.translatable(overlayAnchorLangKey(cfg.anchor))),
-            ),
-        )
-        val cornerAnchor = cfg.anchor.isCorner()
-        overlayLayoutButton.active(cornerAnchor)
-        overlayLayoutButton.setMessage(
-            symbol(
-                if (cfg.layout == SpeakingOverlayLayout.HORIZONTAL) "↔" else "↕",
-                if (cornerAnchor) ChatFormatting.AQUA else ChatFormatting.DARK_GRAY,
-            ),
-        )
-        overlayLayoutButton.setTooltip(
-            Tooltip.create(
-                Component.translatable(
-                    if (cornerAnchor) GuiLang.TOOLTIP_OVERLAY_LAYOUT else GuiLang.TOOLTIP_OVERLAY_LAYOUT_LOCKED,
-                ),
-            ),
-        )
-    }
-
-    private fun SpeakingOverlayAnchor.isCorner(): Boolean = when (this) {
-        SpeakingOverlayAnchor.TOP_LEFT,
-        SpeakingOverlayAnchor.TOP_RIGHT,
-        SpeakingOverlayAnchor.BOTTOM_LEFT,
-        SpeakingOverlayAnchor.BOTTOM_RIGHT,
-        -> true
-        else -> false
-    }
-
-    private fun overlayAnchorLangKey(anchor: SpeakingOverlayAnchor): String = when (anchor) {
-        SpeakingOverlayAnchor.TOP_LEFT -> GuiLang.OVERLAY_ANCHOR_TOP_LEFT
-        SpeakingOverlayAnchor.TOP -> GuiLang.OVERLAY_ANCHOR_TOP
-        SpeakingOverlayAnchor.TOP_RIGHT -> GuiLang.OVERLAY_ANCHOR_TOP_RIGHT
-        SpeakingOverlayAnchor.LEFT -> GuiLang.OVERLAY_ANCHOR_LEFT
-        SpeakingOverlayAnchor.RIGHT -> GuiLang.OVERLAY_ANCHOR_RIGHT
-        SpeakingOverlayAnchor.BOTTOM_LEFT -> GuiLang.OVERLAY_ANCHOR_BOTTOM_LEFT
-        SpeakingOverlayAnchor.BOTTOM -> GuiLang.OVERLAY_ANCHOR_BOTTOM
-        SpeakingOverlayAnchor.BOTTOM_RIGHT -> GuiLang.OVERLAY_ANCHOR_BOTTOM_RIGHT
-    }
 
     private fun symbol(text: String, color: ChatFormatting): Component =
         Component.literal(text).withStyle(color)

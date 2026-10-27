@@ -22,3 +22,6 @@ bin/
 libs/
 *.hprof
 .cursor/
+.local-test.json
+__pycache__/
+*.pyc

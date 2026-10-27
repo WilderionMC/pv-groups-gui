@@ -5,7 +5,7 @@ data class GroupsGuiPanelLayout(val x: Int, val y: Int, val width: Int, val heig
     val bottom get() = y + height
     val contentX get() = x + 10
     val contentWidth get() = (width - 20).coerceAtLeast(1)
-    val toolbarRows get() = if (width < 240) 2 else 1
+    val toolbarRows get() = 2
     val toolbarY get() = bottom - 10 - toolbarRows * 22
 
     companion object {

@@ -65,7 +65,7 @@ if (findProject(":client-ui") != null) {
         into(layout.buildDirectory.dir("artifacts/plasmo-ui"))
     }
     tasks.register("assembleArtifacts") {
-        dependsOn(":client-ui:check", collectServerArtifact)
+        dependsOn(":client-ui:check", ":client-ui:buildAllClients", collectServerArtifact)
         val artifacts = layout.buildDirectory.dir("artifacts/plasmo-ui")
         inputs.files(fileTree(artifacts) { include("*.jar") })
         outputs.file(artifacts.map { it.file("SHA256SUMS.txt") })

@@ -27,6 +27,7 @@ data class GuiClientState(
     var loading: Boolean = false,
     /** Lang key of the in-flight action, or null when idle. */
     var pendingAction: String? = null,
+    var savingSettings: Boolean = false,
 )
 
 fun interface GuiStateListener {
@@ -41,6 +42,7 @@ class GroupsGuiController(
     private val runOnClientThread: (Runnable) -> Unit,
 ) {
     private val listeners = CopyOnWriteArrayList<GuiStateListener>()
+    private val settingsChanges = java.util.ArrayDeque<GuiMessage.C2S>()
     @Volatile
     var state: GuiClientState = GuiClientState()
         private set
@@ -55,6 +57,7 @@ class GroupsGuiController(
     }
 
     fun onOpen() {
+        if (state.savingSettings) return
         update {
             loading = true
             pendingAction = null
@@ -140,6 +143,10 @@ class GroupsGuiController(
         send(GuiMessage.C2S.ListInviteCandidates)
     }
 
+    fun dismissStatus() {
+        if (state.pendingAction == null && state.status != null) update { status = null }
+    }
+
     fun delete() {
         update {
             pendingAction = GuiLang.STATUS_DELETING
@@ -198,6 +205,24 @@ class GroupsGuiController(
         setPermissions(null)
     }
 
+    /** Apply settings in order; a rejected change stops the remaining requests. */
+    fun saveSettings(changes: List<GuiMessage.C2S>) {
+        if (state.pendingAction != null || changes.isEmpty()) return
+        require(changes.all { it is GuiMessage.C2S.SetName || it is GuiMessage.C2S.SetPassword ||
+            it is GuiMessage.C2S.SetPersistent || it is GuiMessage.C2S.SetPermissions })
+        settingsChanges.addAll(changes)
+        sendNextSetting()
+    }
+
+    private fun sendNextSetting() {
+        update {
+            savingSettings = true
+            pendingAction = GuiLang.STATUS_SETTINGS
+            status = StatusText(GuiLang.STATUS_SETTINGS)
+        }
+        send(settingsChanges.removeFirst())
+    }
+
     fun refreshInfo() {
         send(GuiMessage.C2S.Info)
     }
@@ -222,18 +247,26 @@ class GroupsGuiController(
                     loading = false
                 }
                 is GuiMessage.S2C.ActionResult -> {
+                    val wasSaving = state.savingSettings
+                    if (state.savingSettings && message.success && settingsChanges.isNotEmpty()) {
+                        sendNextSetting()
+                        return@runOnClientThread
+                    }
+                    val saved = state.savingSettings && message.success
+                    settingsChanges.clear()
                     update {
-                        status = StatusText(message.translationKey, message.args)
+                        status = if (saved) StatusText(GuiLang.SUCCESS_SETTINGS) else StatusText(message.translationKey, message.args)
                         pendingAction = null
+                        savingSettings = false
                         loading = false
                     }
-                    if (message.success) {
+                    if (message.success || wasSaving) {
                         refreshBrowse()
                     }
                 }
                 is GuiMessage.S2C.State -> if (state.current != message.current || state.loading) update {
                     current = message.current
-                    pendingAction = null
+                    if (!savingSettings) pendingAction = null
                     loading = false
                 }
                 is GuiMessage.S2C.InviteCandidates -> if (state.inviteCandidates != message.players) update {

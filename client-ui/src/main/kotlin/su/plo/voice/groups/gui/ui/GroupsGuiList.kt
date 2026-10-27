@@ -43,9 +43,8 @@ class GroupsGuiList(parent: GroupsGuiScreen, width: Int, top: Int, bottom: Int) 
             override fun updatePosition(context: GuiRenderContext, index: Int, x: Int, y: Int, entryWidth: Int,
                                         mouseX: Int, mouseY: Int, hovered: Boolean, delta: Float) {
                 buttons.forEachIndexed { i, button ->
-                    button.x = x + entryWidth - (buttons.size - i) * 22
+                    button.x = x + entryWidth - buttons.drop(i).sumOf { it.width + 2 }
                     button.y = y + 6
-                    button.width = 20
                 }
             }
             override fun render(context: GuiRenderContext, index: Int, x: Int, y: Int, entryWidth: Int,
@@ -53,30 +52,43 @@ class GroupsGuiList(parent: GroupsGuiScreen, width: Int, top: Int, bottom: Int) 
                 if (hovered) context.fill(x - 2, y + 1, x + entryWidth, y + 31, Color(255, 255, 255, 12))
                 PlasmoPlayerHeads.render(context, id, name, x, y + 4, 24)
                 context.drawString(RenderUtil.stringToWidth(RenderUtil.getFormattedString(text),
-                    (entryWidth - 34 - buttons.size * 22).coerceAtLeast(1)), x + 32, y + 12, Color.WHITE)
+                    (entryWidth - 34 - buttons.sumOf { it.width + 2 }).coerceAtLeast(1)), x + 32, y + 12, Color.WHITE)
                 buttons.forEach { it.render(context, mouseX, mouseY, delta) }
             }
         })
     }
 
-    fun addGroup(group: GroupSnapshot, button: GuiAbstractWidget) {
+    fun addGroup(group: GroupSnapshot, button: GuiAbstractWidget, current: Boolean = false) {
         group.members.forEach { PlasmoPlayerHeads.load(it.uuid, it.name) }
-        addEntry(object : Entry(if (group.members.isEmpty()) 26 else 50) {
+        addEntry(object : Entry(36) {
             override fun widgets(): List<GuiWidgetListener> = listOf(button)
             override fun updatePosition(context: GuiRenderContext, index: Int, x: Int, y: Int, entryWidth: Int,
                                         mouseX: Int, mouseY: Int, hovered: Boolean, delta: Float) {
-                button.x = x
-                button.y = y + 2
-                button.width = entryWidth
+                button.x = x + entryWidth - button.width - 5
+                button.y = y + 7
             }
             override fun render(context: GuiRenderContext, index: Int, x: Int, y: Int, entryWidth: Int,
                                 mouseX: Int, mouseY: Int, hovered: Boolean, delta: Float) {
-                button.render(context, mouseX, mouseY, delta)
-                val count = ((entryWidth - 30) / 20).coerceAtLeast(0)
+                context.fill(x, y + 1, x + entryWidth, y + 34,
+                    if (current) Color(43, 65, 54) else if (hovered) Color(72, 72, 76) else Color(47, 47, 51))
+                if (current) context.fill(x, y + 1, x + 2, y + 34, Color(135, 220, 175))
+                val title = (if (group.passwordProtected) "⛨ " else "") + group.name
+                context.drawString(RenderUtil.stringToWidth(title, (entryWidth - button.width - 18).coerceAtLeast(1)),
+                    x + 6, y + 5, Color.WHITE)
+                val online = RenderUtil.getFormattedString(McTextComponent.translatable(
+                    su.plo.voice.groups.gui.protocol.GuiLang.STATUS_IN_GROUP, group.onlinePlayers.toString()))
+                val onlineX = x + entryWidth - button.width - 12 - RenderUtil.getTextWidth(McTextComponent.literal(online))
+                val count = ((onlineX - x - 24) / 14).coerceIn(0, 5)
                 group.members.take(count).forEachIndexed { i, member ->
-                    PlasmoPlayerHeads.render(context, member.uuid, member.name, x + i * 20, y + 26)
+                    PlasmoPlayerHeads.render(context, member.uuid, member.name, x + 6 + i * 14, y + 18, 12)
                 }
-                if (group.members.size > count) context.drawString("+${group.members.size - count}", x + count * 20, y + 30, Color.LIGHT_GRAY)
+                if (group.members.size > count) context.drawString("+${group.members.size - count}", x + 6 + count * 14, y + 20, Color.LIGHT_GRAY)
+                context.drawString(online, onlineX, y + 20, Color.LIGHT_GRAY)
+                button.render(context, mouseX, mouseY, delta)
+                if (hovered && !button.isMouseOver(mouseX.toDouble(), mouseY.toDouble())) parent.showHint(
+                    McTextComponent.empty().append(McTextComponent.literal(group.name + "\n"),
+                        McTextComponent.translatable(if (group.passwordProtected) su.plo.voice.groups.gui.protocol.GuiLang.STATUS_PASSWORD_ON
+                            else su.plo.voice.groups.gui.protocol.GuiLang.STATUS_PASSWORD_OFF)), mouseX, mouseY)
             }
         })
     }

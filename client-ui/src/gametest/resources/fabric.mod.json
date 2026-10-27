@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "pv-groups-gui-tests",
+  "version": "1.0.0",
+  "name": "PV Groups GUI client tests",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["su.plo.voice.groups.gui.ui.FabricGroupsGuiMod"],
+    "fabric-client-gametest": ["su.plo.voice.groups.gui.ui.GroupsGuiClientGameTest"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "26.2",
+    "plasmovoice": "2.1.17",
+    "fabric-api": "*"
+  }
+}

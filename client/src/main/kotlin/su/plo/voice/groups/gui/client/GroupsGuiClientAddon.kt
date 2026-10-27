@@ -29,6 +29,8 @@ class GroupsGuiClientAddon : AddonInitializer {
     @Volatile
     var screenOpener: GroupsGuiScreenOpener? = null
 
+    var onReady: (PlasmoVoiceClient) -> Unit = {}
+
     fun plasmoVoiceClient(): PlasmoVoiceClient? =
         if (::voiceClient.isInitialized) voiceClient else null
 
@@ -43,6 +45,7 @@ class GroupsGuiClientAddon : AddonInitializer {
             },
             runOnClientThread = { runnable -> clientScheduler(runnable) },
         )
+        onReady(voiceClient)
     }
 
     fun openGui() {

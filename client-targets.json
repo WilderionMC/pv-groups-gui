@@ -1,0 +1,372 @@
+[
+  {
+    "name": "neoforge-26.3",
+    "loader": "neoforge",
+    "minecraft": [
+      "26.3"
+    ],
+    "plasmoVersion": "neoforge-26.3-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/l4DODz7G/plasmovoice-neoforge-26.3-2.1.17.jar",
+    "plasmoSha512": "0d4d36e84fd2b3776096fb0c3329168ca5387e246428198c64177278887477b854c99f1232750f3b5eb0d9b394268e1a5a6c474dfb3933ebee521b5146da4c9c",
+    "openKey": 10
+  },
+  {
+    "name": "fabric-26.3",
+    "loader": "fabric",
+    "minecraft": [
+      "26.3"
+    ],
+    "plasmoVersion": "fabric-26.3-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/vKP6gBRn/plasmovoice-fabric-26.3-2.1.17.jar",
+    "plasmoSha512": "00090edb493fc6b632a6825c765ff797f8469625f2c30a44b8d07d920b6fa7159e6671d585d122d272d2e7a6e6a11f2c1cb5f81cbaf2738354ad80abd9fe8f83",
+    "openKey": 10
+  },
+  {
+    "name": "neoforge-26.2",
+    "loader": "neoforge",
+    "minecraft": [
+      "26.2"
+    ],
+    "plasmoVersion": "neoforge-26.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/QqZ4grre/plasmovoice-neoforge-26.2-2.1.17.jar",
+    "plasmoSha512": "6db001b584bad981985673e9596c3de25326147d751d2d9b401c755e4ea024af03db562a495ba5c8b6a1c20087b491b6e7ebd9a43500175df97f82317eaf9d5d",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-26.2",
+    "loader": "fabric",
+    "minecraft": [
+      "26.2"
+    ],
+    "plasmoVersion": "fabric-26.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/lmQvyHuY/plasmovoice-fabric-26.2-2.1.17.jar",
+    "plasmoSha512": "653fb434622343ca3758f46ad6fac6de73120aeb5e842bc258170b2c66c44a146401bd487c9213926a4eecc34506a0978245f8b8ddd38d304cef49f231599c88",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-26.1",
+    "loader": "neoforge",
+    "minecraft": [
+      "26.1",
+      "26.1.1",
+      "26.1.2"
+    ],
+    "plasmoVersion": "neoforge-26.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/xRZUtLOh/plasmovoice-neoforge-26.1-2.1.17.jar",
+    "plasmoSha512": "055fc453d957bf336d1f218340f83b2e501258c1c950d7e2cf9cb7ca28b1c6d01a31ef3a029ebff7017ab2e0f4c75a83b4f066af5da47ae97f125fe6c0cf5d7a",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-26.1",
+    "loader": "fabric",
+    "minecraft": [
+      "26.1",
+      "26.1.1",
+      "26.1.2"
+    ],
+    "plasmoVersion": "fabric-26.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/AWrwR3ci/plasmovoice-fabric-26.1-2.1.17.jar",
+    "plasmoSha512": "2c15ec6e2ffcf07ce09691152decdd2436051d6cd2eb629e8801a341572c2fe104d2bcfdebe40af1d998bb1e613b18a976e275529b81304d3ed0f7665375cf13",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-1.21.11",
+    "loader": "neoforge",
+    "minecraft": [
+      "1.21.11"
+    ],
+    "plasmoVersion": "neoforge-1.21.11-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/u1ZZ3y0Y/plasmovoice-neoforge-1.21.11-2.1.17.jar",
+    "plasmoSha512": "599b1a7372ff3c43b41c036a19ef725d1d7b4ee1ca762826371a9ab7a786f61ffd8aba4f34b6ea24ea5bdb7dc16f42cc735b2812a05e33619df23c0828b6744d",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.21.11",
+    "loader": "fabric",
+    "minecraft": [
+      "1.21.11"
+    ],
+    "plasmoVersion": "fabric-1.21.11-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/eK4Sv4pO/plasmovoice-fabric-1.21.11-2.1.17.jar",
+    "plasmoSha512": "a9d4d0f6a51d69b420656463225cca34ebac79982d514aca90ebef604ce850865579d47962043d1db78998c076d40d70cf965c54c392e93c71a9364bf7aa99f3",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-1.21.7",
+    "loader": "neoforge",
+    "minecraft": [
+      "1.21.7",
+      "1.21.8"
+    ],
+    "plasmoVersion": "neoforge-1.21.7-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/6tIx8oXd/plasmovoice-neoforge-1.21.7-2.1.17.jar",
+    "plasmoSha512": "16a6bd17ea56ff314d397ab7a8618e991cf781080299ca41a91d95b92af8a217cffe1627695d546d6497cc7973d1f8c66810629101f77b55ae8d2e7b9cd92ac9",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-1.21.6",
+    "loader": "neoforge",
+    "minecraft": [
+      "1.21.6"
+    ],
+    "plasmoVersion": "neoforge-1.21.6-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/2te5OiFQ/plasmovoice-neoforge-1.21.6-2.1.17.jar",
+    "plasmoSha512": "133c2040f17414bf3fecac71d263a83ab33594bd832ffcfd3390fa20fe8a98becedfcfbfd6cefe42049b3e5817f67facf17f9577a444d4286a24f6bee553f19f",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.21.6",
+    "loader": "fabric",
+    "minecraft": [
+      "1.21.6",
+      "1.21.7",
+      "1.21.8"
+    ],
+    "plasmoVersion": "fabric-1.21.6-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/FoUzQj6E/plasmovoice-fabric-1.21.6-2.1.17.jar",
+    "plasmoSha512": "fadcddaa8ffa9206027308c3075408b630fffc6e3b9f2bfc7ca0524042deb5f6207dd5a28800dd9af23bc5b7fbf119b2e53deae0b722455bc7c6d69534588334",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-1.21.4",
+    "loader": "neoforge",
+    "minecraft": [
+      "1.21.4"
+    ],
+    "plasmoVersion": "neoforge-1.21.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/8rd5gky9/plasmovoice-neoforge-1.21.4-2.1.17.jar",
+    "plasmoSha512": "f78aa672d86c516a47b710932d6695c2196fe757afc53513069436354a7dd9f9a62aa5cc6dffde75546f5b22885e8e775dce9f88004d7752c07f85e6b76dc4cd",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.21.4",
+    "loader": "fabric",
+    "minecraft": [
+      "1.21.4"
+    ],
+    "plasmoVersion": "fabric-1.21.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/zueqcgC8/plasmovoice-fabric-1.21.4-2.1.17.jar",
+    "plasmoSha512": "6dc5b023fdb267429fbd7fd8e8832256b5ec7a77a3387668ef56721572bd6adfff450e8ab7bc2ef8da0babe85f7f9624dc68ef1994127e1059a5d089c0e5c9c2",
+    "openKey": 71
+  },
+  {
+    "name": "neoforge-1.21.1",
+    "loader": "neoforge",
+    "minecraft": [
+      "1.21",
+      "1.21.1"
+    ],
+    "plasmoVersion": "neoforge-1.21.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/97HOKGM0/plasmovoice-neoforge-1.21.1-2.1.17.jar",
+    "plasmoSha512": "6847a3d4b8ab6fcb14d57777bf54cca8798c23d746b4f4cf80fe31fae4a86995e7e1c5a6ad7e7ecc2a94afe3a79094d3afffcc0df7cf061e7a96c3eff6ac2d32",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.21.1",
+    "loader": "forge",
+    "minecraft": [
+      "1.21",
+      "1.21.1"
+    ],
+    "plasmoVersion": "forge-1.21.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/lkNAkqrJ/plasmovoice-forge-1.21.1-2.1.17.jar",
+    "plasmoSha512": "1c47682c32e6e7e2a738bb40770b654eb58387730fc1ac1fa6ab8ab032506a4dd1ee11f129661c7ed203a13691839b3075ad099c124024a56a13856f8e32b427",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.21.1",
+    "loader": "fabric",
+    "minecraft": [
+      "1.21",
+      "1.21.1"
+    ],
+    "plasmoVersion": "fabric-1.21.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/6Q2QmcUp/plasmovoice-fabric-1.21.1-2.1.17.jar",
+    "plasmoSha512": "64e609532300865bc0388392f287fc0e62b030b2f3e637d058b88ee52967d515b6b018990149d65d7768f3ca8e94f007fcb3588b7dd49c5b5949f5ccefba6bba",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.20.4",
+    "loader": "forge",
+    "minecraft": [
+      "1.20.3",
+      "1.20.4"
+    ],
+    "plasmoVersion": "forge-1.20.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/emtfYObu/plasmovoice-forge-1.20.4-2.1.17.jar",
+    "plasmoSha512": "3608e221c283801d887a078d564f38651719622bc1df4bc1b783a3bb1a20ac2ab2af5295ef4874aeaae11ecb2bca7666a1aac399b34af0b137c804fc2bae4f52",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.20.4",
+    "loader": "fabric",
+    "minecraft": [
+      "1.20.3",
+      "1.20.4"
+    ],
+    "plasmoVersion": "fabric-1.20.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/VsQ7zzMT/plasmovoice-fabric-1.20.4-2.1.17.jar",
+    "plasmoSha512": "b96dbd4895fb9ac167895794e20ee4d81e21ac1bafd2e2e5db007010d601346b8b42d460e4c60f9f0a26c5fb67e36ef53b486ae82164f013e04f34322afa4d59",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.20.1",
+    "loader": "forge",
+    "minecraft": [
+      "1.20",
+      "1.20.1"
+    ],
+    "plasmoVersion": "forge-1.20.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/KoHwlbDf/plasmovoice-forge-1.20.1-2.1.17.jar",
+    "plasmoSha512": "78dffc701631a7ae7a4ad5982b27e99391de254879bbcc80591f4e0fa877b07b2126e9bc95bad96b4e6e990cd80a8df4dfcfcdc42471c095c493f64edd599d57",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.20.1",
+    "loader": "fabric",
+    "minecraft": [
+      "1.20",
+      "1.20.1"
+    ],
+    "plasmoVersion": "fabric-1.20.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/rFDDAPes/plasmovoice-fabric-1.20.1-2.1.17.jar",
+    "plasmoSha512": "33e8768c1997291539e6cc10b4ab7d7b4169680559956e9d9f9aa30e18c09150ac2e2f3e19a9c170e3302e1fd702650c1ee0a89938155c16853a78e90ad79ad2",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.19.4",
+    "loader": "forge",
+    "minecraft": [
+      "1.19.4"
+    ],
+    "plasmoVersion": "forge-1.19.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/7qYx9ePB/plasmovoice-forge-1.19.4-2.1.17.jar",
+    "plasmoSha512": "58688675a5ac399a5a71e33ce501872d828aa9b7c2688ccca940c759b6e9b3cb06c559db4895dab66100ad4cf4e3d6496b260b2d6b927b5e8106f3da78467662",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.19.4",
+    "loader": "fabric",
+    "minecraft": [
+      "1.19.4"
+    ],
+    "plasmoVersion": "fabric-1.19.4-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/UcXNz7M6/plasmovoice-fabric-1.19.4-2.1.17.jar",
+    "plasmoSha512": "30cc763442b2621e196bbe475b7059d979e29fa7c971c8593591559e40303eda800dc359ebd169c96a9888a9f010c9c01de9f7de4cf0567c7227ce7d98de62c5",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.19.3",
+    "loader": "forge",
+    "minecraft": [
+      "1.19.3"
+    ],
+    "plasmoVersion": "forge-1.19.3-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/8v1jTdZF/plasmovoice-forge-1.19.3-2.1.17.jar",
+    "plasmoSha512": "707090f5474aa140610f1a5fc54efe6050e4ccf15bd3cf709e2d233932bc28a0b4197cbf34d0d1fd0c57f710d572085a494572321fc05bbc95e4701a17d32185",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.19.3",
+    "loader": "fabric",
+    "minecraft": [
+      "1.19.3"
+    ],
+    "plasmoVersion": "fabric-1.19.3-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/tLodvyUL/plasmovoice-fabric-1.19.3-2.1.17.jar",
+    "plasmoSha512": "20314736c7d74e25beb5b561240e66f7cf1dcf78a374c8bb63fc42ec4f43751a868bf76c1b34e3c0aa0db436ac93d30ab3d64639d2e64c5d545aedeca8ac772d",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.19.2",
+    "loader": "forge",
+    "minecraft": [
+      "1.19",
+      "1.19.1",
+      "1.19.2"
+    ],
+    "plasmoVersion": "forge-1.19.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/F1VKyzib/plasmovoice-forge-1.19.2-2.1.17.jar",
+    "plasmoSha512": "9f38f7d42f6724fb2eaeca2d6583c263b8031a0ea0e54ca8f51ce09e3599ea6a95488fd5e408af6abb873ffadf4a72611e554992291a4a091f1bd7afea3b5b3f",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.19.2",
+    "loader": "fabric",
+    "minecraft": [
+      "1.19",
+      "1.19.1",
+      "1.19.2"
+    ],
+    "plasmoVersion": "fabric-1.19.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/MRO4EUl3/plasmovoice-fabric-1.19.2-2.1.17.jar",
+    "plasmoSha512": "26edb5288b77fd9df2ea40fa4fcc6406dba1b53804dde6b2761bbf90e1ab3e70f3febeac54ff77a15a2944cd9053b2451a246cb72978ef93babd7bc4551c3094",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.18.2",
+    "loader": "forge",
+    "minecraft": [
+      "1.18.2"
+    ],
+    "plasmoVersion": "forge-1.18.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/agUvymvl/plasmovoice-forge-1.18.2-2.1.17.jar",
+    "plasmoSha512": "3f9f97f2f35ccb6fc406656b9d7ba58a5fe3af4327327bd153c19b7ff016cc4901c6f0abd89ca093828722fab54c6cf26634653ef80243a1eeab4bdb3fc6a272",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.18.2",
+    "loader": "fabric",
+    "minecraft": [
+      "1.18.2"
+    ],
+    "plasmoVersion": "fabric-1.18.2-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/wwrYyVoj/plasmovoice-fabric-1.18.2-2.1.17.jar",
+    "plasmoSha512": "bd559d023ce9096ca3f60f0e8a4d1fd38b82d13b053181172e6d249bac403a6daef0f90c17e23695cccd32a1b8857471c36749be052e763f1ede970a540ac4e2",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.17.1",
+    "loader": "forge",
+    "minecraft": [
+      "1.17.1"
+    ],
+    "plasmoVersion": "forge-1.17.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/bHsbPNxp/plasmovoice-forge-1.17.1-2.1.17.jar",
+    "plasmoSha512": "cf64d605e0002407411868885bda605c961f8537c8588f94b49e8f91926bd21c48f2dd3de18c587450321cd8e627f5597bf96483345f3bcc4ad9798f40095902",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.17.1",
+    "loader": "fabric",
+    "minecraft": [
+      "1.17.1"
+    ],
+    "plasmoVersion": "fabric-1.17.1-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/fHEQPw5a/plasmovoice-fabric-1.17.1-2.1.17.jar",
+    "plasmoSha512": "65bbd1275f16cd8f4be769d6a4d671d73e45c984d2d6f768d3885463fa78798916c9fb9882bbc65c2aaa5a5a001883a86c9b4a54b24ea6090f5938eabc8337a2",
+    "openKey": 71
+  },
+  {
+    "name": "forge-1.16.5",
+    "loader": "forge",
+    "minecraft": [
+      "1.16.5"
+    ],
+    "plasmoVersion": "forge-1.16.5-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/sVbz4VTK/plasmovoice-forge-1.16.5-2.1.17.jar",
+    "plasmoSha512": "8e4ad565953e3536d98313577f7fddf23385cd31d3ba06795808055037921b5f27b88e94789c85ea58f4842f6d4db6416bcc227d4b278e97c02385673bac4de2",
+    "openKey": 71
+  },
+  {
+    "name": "fabric-1.16.5",
+    "loader": "fabric",
+    "minecraft": [
+      "1.16.5"
+    ],
+    "plasmoVersion": "fabric-1.16.5-2.1.17",
+    "plasmoUrl": "https://cdn.modrinth.com/data/1bZhdhsH/versions/gEu4XS1L/plasmovoice-fabric-1.16.5-2.1.17.jar",
+    "plasmoSha512": "5a95ba718c2cc3046039c48646a0f7ae0c43fc054540517bf7a997eecba4e19876ffa28bc22090e8a2a33ae81b824b45720c1408008a8d5a6addf432410c6fbd",
+    "openKey": 71
+  }
+]

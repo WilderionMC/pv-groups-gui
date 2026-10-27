@@ -217,7 +217,7 @@ class GroupsGuiController(
                         status = StatusText(GuiLang.STATUS_GROUPS_UNAVAILABLE)
                     }
                 }
-                is GuiMessage.S2C.Browse -> update {
+                is GuiMessage.S2C.Browse -> if (state.browse != message.page || state.loading) update {
                     browse = message.page
                     loading = false
                 }
@@ -231,12 +231,12 @@ class GroupsGuiController(
                         refreshBrowse()
                     }
                 }
-                is GuiMessage.S2C.State -> update {
+                is GuiMessage.S2C.State -> if (state.current != message.current || state.loading) update {
                     current = message.current
                     pendingAction = null
                     loading = false
                 }
-                is GuiMessage.S2C.InviteCandidates -> update {
+                is GuiMessage.S2C.InviteCandidates -> if (state.inviteCandidates != message.players) update {
                     inviteCandidates = message.players
                 }
             }

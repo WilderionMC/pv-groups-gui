@@ -39,15 +39,12 @@ include(
     "dist-server",
 )
 
-// Client loaders are opt-in for CLI/CI so server jars build without Loom (Java 25).
-// - IntelliJ: fabric is included automatically (idea.active) for navigation & run configs.
-// - CLI: ./gradlew :fabric:jar :fabric-26.1.2:jar :fabric-1.21.11:jar :fabric-1.20.6:jar -PwithClient=true
+// Client UI is opt-in for CLI/CI so server jars build without Loom (Java 25).
+// - IntelliJ: client-ui is included automatically for navigation.
+// - CLI: ./gradlew assembleArtifacts -PwithClient=true
 // - Force off in IDE: -PwithClient=false
 if (shouldIncludeFabricClient(settings)) {
-    include("fabric")
-    include("fabric-26.1.2")
-    include("fabric-1.21.11")
-    include("fabric-1.20.6")
+    include("client-ui")
 }
 
 fun shouldIncludeFabricClient(settings: Settings): Boolean {

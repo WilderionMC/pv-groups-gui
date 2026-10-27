@@ -88,7 +88,7 @@ public class UiScenarios {
 
     private void browseCreate() {
         open(null);
-        check(!read(() -> button(tr(GuiLang.BUTTON_JOIN)).isActive()), "join needs selection");
+        check(read(() -> button(tr(GuiLang.BUTTON_JOIN)).isActive()), "group has its own join action");
         click(tr(GuiLang.BUTTON_CREATE));
         type("name", "QA Привет");
         type("password", "secret");
@@ -97,7 +97,9 @@ public class UiScenarios {
         check(request.getName().equals("QA Привет") && request.getPassword().equals("secret"), "create payload");
         reply(snapshot(true, 1), GuiLang.SUCCESS_CREATE);
         check(read(() -> view().equals("GROUP")), "create opens group");
-        check(read(() -> button("→").isActive()), "owner can transfer");
+        click(tr(GuiLang.BUTTON_MANAGE));
+        check(read(() -> button(tr(GuiLang.BUTTON_TRANSFER)).isActive()), "owner can transfer");
+        click(tr(GuiLang.BUTTON_BACK));
         check(read(() -> !RenderUtil.getFormattedString(screen.getTitle()).contains("%s")), "no raw title placeholder");
         context.assertSymbols();
         check(!tr(GuiLang.BUTTON_TRANSFER).contains(GuiLang.PREFIX), "transfer translation exists");
@@ -105,27 +107,43 @@ public class UiScenarios {
 
     private void passwordJoin() {
         open(null);
-        clickContains("QA group");
+        click(tr(GuiLang.BUTTON_JOIN));
         click(tr(GuiLang.BUTTON_JOIN));
         check(last(GuiMessage.C2S.Join.class).getPassword() == null, "empty password remains absent");
         context.runOnClient(client -> controller.handle(new GuiMessage.S2C.ActionResult(false, GuiLang.ERROR_WRONG_PASSWORD, of())));
         context.waitTicks(2);
-        check(read(() -> view().equals("MAIN")), "wrong password stays on browse");
+        check(read(() -> view().equals("JOIN")), "wrong password stays in join dialog");
         type("joinPassword", "secret");
         click(tr(GuiLang.BUTTON_JOIN));
         check(last(GuiMessage.C2S.Join.class).getPassword().equals("secret"), "join sends typed password");
         reply(snapshot(false, 2), GuiLang.SUCCESS_JOIN);
         check(read(() -> view().equals("GROUP")), "successful join opens group");
+        click(tr(GuiLang.BUTTON_ALL_GROUPS));
+        UUID otherGroup = new UUID(0, 20);
+        groups = of(snapshot(otherGroup, "Other protected group", false, 2, true, of()));
+        context.runOnClient(client -> controller.handle(new GuiMessage.S2C.Browse(new BrowsePage(1, 1, groups, GROUP))));
+        context.waitTicks(3);
+        click(tr(GuiLang.BUTTON_JOIN));
+        click(tr(GuiLang.BUTTON_JOIN));
+        check(read(() -> view().equals("JOIN")), "joining another group waits for confirmed membership");
+        context.runOnClient(client -> controller.handle(new GuiMessage.S2C.ActionResult(false, GuiLang.ERROR_WRONG_PASSWORD, of())));
+        context.waitTicks(2);
+        check(read(() -> view().equals("JOIN")), "wrong password cannot return to previous group");
+        reply(groups.get(0), GuiLang.SUCCESS_JOIN);
+        check(read(() -> view().equals("GROUP")), "confirmed membership opens new group");
+        check(read(() -> controller.getState().getCurrent().getId()).equals(otherGroup), "new group is the confirmed target");
     }
 
     private void memberPermissions() {
         open(snapshot(false, 2));
-        check(!read(() -> button("→").isActive()), "member cannot transfer");
-        check(!read(() -> button("✎").isActive()), "member cannot edit");
-        click("✎");
-        check(read(() -> view().equals("GROUP")), "disabled settings cannot open");
-        check(read(() -> allWidgets().stream().filter(w -> w instanceof Button).count()) == 6,
+        check(read(() -> allWidgets().stream().filter(w -> w instanceof Button).count()) == 5,
                 "member has no moderation controls for other players");
+        click(tr(GuiLang.BUTTON_MANAGE));
+        check(!read(() -> button(tr(GuiLang.BUTTON_TRANSFER)).isActive()), "member cannot transfer");
+        check(!read(() -> button(tr(GuiLang.TITLE_SETTINGS)).isActive()), "member cannot edit");
+        click(tr(GuiLang.TITLE_SETTINGS));
+        check(read(() -> view().equals("MANAGE")), "disabled settings cannot open");
+        click(tr(GuiLang.BUTTON_BACK));
     }
 
     private void liveMembership() {
@@ -143,7 +161,18 @@ public class UiScenarios {
     private void focusTextResize() {
         open(null);
         click(tr(GuiLang.BUTTON_CREATE));
+        check(read(() -> !((Map<?, ?>) reflect(screen, "fields")).containsKey("permissions")), "simple creation hides permissions");
         type("name", "QA input");
+        click(tr(GuiLang.BUTTON_ADVANCED));
+        scrollToBottom();
+        type("permissions", "qa.join");
+        scrollToTop();
+        click(tr(GuiLang.BUTTON_ADVANCED_HIDE));
+        click(tr(GuiLang.BUTTON_ADVANCED));
+        check(read(() -> field("permissions").getValue()).equals("qa.join"), "advanced draft survives collapse");
+        scrollToTop();
+        click(tr(GuiLang.BUTTON_ADVANCED_HIDE));
+        clickWidget(read(() -> field("name")));
         context.waitTicks(45);
         context.getInput().typeChars(" remains");
         check(read(() -> field("name").getValue()).equals("QA input remains"), "poll preserves text and keyboard focus");
@@ -159,100 +188,112 @@ public class UiScenarios {
         bounds();
     }
 
+    private void openSettings() {
+        click(tr(GuiLang.BUTTON_MANAGE));
+        click(tr(GuiLang.TITLE_SETTINGS));
+    }
+
     private void settingsScrollReset() {
         open(snapshot(true, 2));
-        click("✎");
+        openSettings();
         type("password", "unsaved password");
         scrollToBottom();
-        double offset = read(() -> list().getOffset());
-        check(offset > 0, "settings actually scroll");
-        click(tr(GuiLang.BUTTON_PERSISTENT_OFF));
-        check(read(() -> list().getOffset()) == offset, "toggle preserves scroll after native first render");
         click(tr(GuiLang.BUTTON_REMOVE_PASSWORD));
-        check(read(() -> field("password").getValue()).isEmpty(), "remove password clears unsaved draft");
-        check(last(GuiMessage.C2S.SetPassword.class).getPassword() == null, "remove password sends null");
-        reply(snapshot(true, 2, false, of("qa.join")), GuiLang.SUCCESS_PASSWORD_UNSET);
         scrollToBottom();
         click(tr(GuiLang.BUTTON_CLEAR_PERMISSIONS));
-        check(read(() -> field("permissions").getValue()).isEmpty(), "clear permissions clears draft");
-        check(last(GuiMessage.C2S.SetPermissions.class).getPermissions() == null, "clear permissions sends null");
-        reply(snapshot(true, 2, false, of()), GuiLang.SUCCESS_PERMISSIONS_UNSET);
+        check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.SetPassword || m instanceof GuiMessage.C2S.SetPermissions)),
+                "removal controls only edit drafts");
+        click(tr(GuiLang.BUTTON_CANCEL));
+        openSettings();
+        check(read(() -> field("password").getValue()).isEmpty(), "cancel discards password draft");
+        check(read(() -> field("permissions").getValue()).equals("qa.join"), "cancel restores permissions");
         scrollToBottom();
+        click(tr(GuiLang.BUTTON_REMOVE_PASSWORD));
+        scrollToBottom();
+        click(tr(GuiLang.BUTTON_CLEAR_PERMISSIONS));
         double before = read(() -> list().getOffset());
-        context.runOnClient(client -> controller.handle(new GuiMessage.S2C.State(snapshot(true, 3, false, of()))));
+        context.runOnClient(client -> controller.handle(new GuiMessage.S2C.State(snapshot(true, 3))));
         context.waitTicks(3);
         check(read(() -> list().getOffset()) == before, "membership update preserves settings scroll");
         click(tr(GuiLang.BUTTON_SAVE));
-        check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.SetPassword && ((GuiMessage.C2S.SetPassword) m).getPassword() != null)), "save cannot restore removed password");
-        check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.SetPermissions && ((GuiMessage.C2S.SetPermissions) m).getPermissions() != null)), "save cannot restore removed permissions");
+        check(last(GuiMessage.C2S.SetPassword.class).getPassword() == null, "save removes password");
+        check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.SetPermissions)), "second change waits for acknowledgement");
+        reply(snapshot(true, 2, false, of("qa.join")), GuiLang.SUCCESS_PASSWORD_UNSET);
+        check(last(GuiMessage.C2S.SetPermissions.class).getPermissions() == null, "save clears permissions after password acknowledgement");
+        check(read(() -> controller.getState().getSavingSettings()), "batch stays busy between acknowledgements");
+        reply(snapshot(true, 2, false, of()), GuiLang.SUCCESS_PERMISSIONS_UNSET);
+        check(!read(() -> controller.getState().getSavingSettings()), "save completes after final acknowledgement");
+        check(read(() -> controller.getState().getStatus().getTranslationKey()).equals(GuiLang.SUCCESS_SETTINGS), "save reports completion");
+        click(tr(GuiLang.BUTTON_CANCEL));
     }
 
     private void inviteTransfer() {
         open(snapshot(true, 2));
         context.runOnClient(client -> controller.handle(new GuiMessage.S2C.InviteCandidates(of(new PlayerRef(OTHER, "Guest")))));
-        click("+");
+        click(tr(GuiLang.BUTTON_CONFIRM_INVITE));
         type("filter", "Gue");
         check(read(() -> field("filter").getValue()).equals("Gue"), "filter accepts all characters");
         clickContains("Guest");
         click(tr(GuiLang.BUTTON_CONFIRM_INVITE));
         check(last(GuiMessage.C2S.Invite.class).getPlayerName().equals("Guest"), "invite targets selection");
         reply(snapshot(true, 2), GuiLang.SUCCESS_INVITE);
-        click("+");
+        click(tr(GuiLang.BUTTON_CONFIRM_INVITE));
         type("filter", "Gue");
         current = snapshot(true, 3);
         context.waitTicks(45);
         check(read(() -> view().equals("INVITE")), "old invite success cannot close a newly opened form on refresh");
         check(read(() -> field("filter").getValue()).equals("Gue"), "invite filter survives membership update");
         click(tr(GuiLang.BUTTON_BACK));
-        click("→");
+        click(tr(GuiLang.BUTTON_MANAGE));
+        click(tr(GuiLang.BUTTON_TRANSFER));
         clickContains("Member1");
         click(tr(GuiLang.BUTTON_CONFIRM_TRANSFER));
         check(read(() -> view().equals("CONFIRM")), "transfer asks confirmation");
-        click(tr(GuiLang.BUTTON_CONFIRM_YES));
+        click(tr(GuiLang.BUTTON_CONFIRM_TRANSFER));
         check(last(GuiMessage.C2S.Transfer.class).getPlayerName().equals("Member1"), "transfer targets selection");
         reply(snapshot(false, 2), GuiLang.SUCCESS_TRANSFER);
-        check(!read(() -> button("→").isActive()), "ownership change revokes controls");
+        click(tr(GuiLang.BUTTON_MANAGE));
+        check(!read(() -> button(tr(GuiLang.BUTTON_TRANSFER)).isActive()), "ownership change revokes controls");
+        click(tr(GuiLang.BUTTON_BACK));
     }
 
     private void moderation() {
         open(snapshot(true, 2));
-        click("-");
-        click(tr(GuiLang.BUTTON_CONFIRM_NO));
+        click(tr(GuiLang.BUTTON_KICK));
+        click(tr(GuiLang.BUTTON_CANCEL));
         check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.Kick)), "cancel does not kick");
-        click("-");
-        click(tr(GuiLang.BUTTON_CONFIRM_YES));
+        click(tr(GuiLang.BUTTON_KICK));
+        click(tr(GuiLang.BUTTON_CONFIRM_KICK));
         check(last(GuiMessage.C2S.Kick.class).getPlayerName().equals("Member1"), "kick targets member");
         reply(snapshot(true, 2), GuiLang.SUCCESS_KICK);
-        // The toolbar has a second ×; select the inline member button by its Y position.
-        clickWidget(read(() -> allWidgets().stream().filter(w -> w instanceof Button && text(w).equals("×"))
-                .filter(w -> w.getY() < panel().getToolbarY() && w.getY() > panel().getY() + 35).findFirst().orElseThrow(() -> new AssertionError("Missing test widget"))));
-        click(tr(GuiLang.BUTTON_CONFIRM_YES));
+        click(tr(GuiLang.BUTTON_BAN));
+        click(tr(GuiLang.BUTTON_CONFIRM_BAN));
         check(last(GuiMessage.C2S.Ban.class).getPlayerName().equals("Member1"), "ban targets member");
         GroupSnapshot banned = snapshot(true, 1);
         banned = banned.copy(banned.getId(), banned.getName(), banned.getOwnerName(), 1, 1, true, false,
                 of(), banned.getMembers(), of(new PlayerRef(new UUID(0, 11), "Member1")), true, true, true, true,
                 true, true, true, true, true, true, true);
         reply(banned, GuiLang.SUCCESS_BAN);
-        clickWidget(read(() -> allWidgets().stream().filter(w -> w instanceof Button && text(w).equals("+"))
-                .filter(w -> w.getY() < panel().getToolbarY()).findFirst().orElseThrow(() -> new AssertionError("Missing test widget"))));
+        click(tr(GuiLang.BUTTON_UNBAN));
         check(last(GuiMessage.C2S.Unban.class).getPlayerName().equals("Member1"), "unban targets banned player");
         reply(snapshot(true, 1), GuiLang.SUCCESS_UNBAN);
     }
 
     private void confirmation() {
         open(snapshot(true, 1));
-        clickWidget(read(() -> buttonAtToolbar("×")));
-        click(tr(GuiLang.BUTTON_CONFIRM_NO));
+        click(tr(GuiLang.BUTTON_MANAGE));
+        click(tr(GuiLang.BUTTON_DELETE));
+        click(tr(GuiLang.BUTTON_CANCEL));
         check(read(() -> requests.stream().noneMatch(m -> m instanceof GuiMessage.C2S.Delete)), "cancel does not delete");
-        clickWidget(read(() -> buttonAtToolbar("×")));
-        click(tr(GuiLang.BUTTON_CONFIRM_YES));
+        click(tr(GuiLang.BUTTON_DELETE));
+        click(tr(GuiLang.BUTTON_DELETE));
         last(GuiMessage.C2S.Delete.class);
         groups = of();
         reply(null, GuiLang.SUCCESS_DELETE);
         check(read(() -> view().equals("MAIN")), "deleted group returns to browse");
         open(snapshot(false, 2));
-        clickWidget(read(() -> buttonAtToolbar("×")));
-        click(tr(GuiLang.BUTTON_CONFIRM_YES));
+        click(tr(GuiLang.TOOLTIP_LEAVE));
+        click(tr(GuiLang.BUTTON_LEAVE));
         last(GuiMessage.C2S.Leave.class);
         reply(null, GuiLang.SUCCESS_LEAVE);
         check(read(() -> view().equals("MAIN")), "leave returns to browse");
@@ -264,6 +305,9 @@ public class UiScenarios {
                 .mapToObj(i -> snapshot(new UUID(1, i), "QA group " + i, true, 2, true, of())).collect(java.util.stream.Collectors.toList());
         context.runOnClient(client -> controller.handle(new GuiMessage.S2C.Browse(new BrowsePage(1, 2, groups, null))));
         context.waitTicks(3);
+        check(read(() -> allWidgets().stream().filter(w -> w instanceof Button && text(w).equals(tr(GuiLang.BUTTON_JOIN)))
+                .filter(w -> w.getY() >= (int) reflect(screen, "bodyTop") && w.getY() + w.getHeight() <= (int) reflect(screen, "bodyBottom")).count()) >= 5,
+                "browser shows at least five complete group actions at normal size");
         scrollToBottom();
         check(read(() -> list().getOffset()) > 0, "many groups scroll");
         click(tr(GuiLang.BUTTON_NEXT));
@@ -324,6 +368,12 @@ public class UiScenarios {
                 ((int) reflect(screen, "bodyTop") + 10.0)});
         context.getInput().setCursorPos(position[0], position[1]);
         context.getInput().scroll(-30);
+        context.waitTicks(3);
+    }
+    private void scrollToTop() {
+        double[] position = read(() -> new double[] {screen.getWidth() / 2.0, (int) reflect(screen, "bodyTop") + 10.0});
+        context.getInput().setCursorPos(position[0], position[1]);
+        context.getInput().scroll(30);
         context.waitTicks(3);
     }
     private void bounds() {

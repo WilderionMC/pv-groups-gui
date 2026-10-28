@@ -35,7 +35,7 @@ jobs:
       - name: Install test dependencies
         run: python -m pip install --target build/matrix-deps -r tools/requirements-test.txt
       - name: Build all artifacts and run Gradle checks
-        run: ./gradlew.bat check assembleArtifacts :client-ui:matrixTestAgent -PwithClient=true -PsyncLocalTest=false --no-daemon --stacktrace
+        run: ./gradlew.bat check assembleArtifacts :client-ui:matrixTestAgent -PwithClient=true -PsyncLocalTest=false --no-daemon --stacktrace --info --console=plain
       - name: Test Python runners and local installer
         run: python -m unittest discover -s tools -p "test_*.py" -v
       - name: Upload installable artifacts

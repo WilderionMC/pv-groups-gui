@@ -14,7 +14,12 @@ public final class MatrixTestAgent {
                     boolean initialized = false;
                     for (Class<?> type : instrumentation.getAllLoadedClasses()) {
                         if (type.getName().equals("su.plo.voice.groups.gui.client.GroupsGuiClientAddon")) {
-                            initialized = type.getMethod("getINSTANCE").invoke(null) != null;
+                            Object addon = type.getMethod("getINSTANCE").invoke(null);
+                            if (addon != null) {
+                                java.lang.reflect.Field controller = type.getDeclaredField("controller");
+                                controller.setAccessible(true);
+                                initialized = controller.get(addon) != null;
+                            }
                             break;
                         }
                     }
@@ -24,7 +29,7 @@ public final class MatrixTestAgent {
                         URL jar = MatrixTestAgent.class.getProtectionDomain().getCodeSource().getLocation();
                         URLClassLoader tests = new URLClassLoader(new URL[] {jar}, type.getClassLoader()) {
                             protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-                                if (name.startsWith("su.plo.voice.groups.gui.ui.MatrixUiDriver") || name.startsWith("su.plo.voice.groups.gui.ui.UiScenarios")) {
+                                if (name.startsWith("su.plo.voice.groups.gui.ui.MatrixUiDriver") || name.startsWith("su.plo.voice.groups.gui.ui.UiScenarios") || name.startsWith("su.plo.voice.groups.gui.ui.BridgeE2eDriver")) {
                                     Class<?> found = findLoadedClass(name);
                                     if (found == null) found = findClass(name);
                                     if (resolve) resolveClass(found);
@@ -33,7 +38,7 @@ public final class MatrixTestAgent {
                                 return super.loadClass(name, resolve);
                             }
                         };
-                        Class<?> runner = tests.loadClass("su.plo.voice.groups.gui.ui.MatrixUiDriver");
+                        Class<?> runner = tests.loadClass(System.getProperty("pv.test.driver", "su.plo.voice.groups.gui.ui.MatrixUiDriver"));
                         runner.getMethod("run").invoke(null);
                         return;
                     }

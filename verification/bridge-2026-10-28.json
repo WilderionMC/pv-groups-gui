@@ -1,0 +1,592 @@
+{
+  "verifiedOn": "2026-10-28",
+  "coverage": "Two real Minecraft clients and one compatible production bridge server per selected client target. No protocol fixtures. Physical G input and voice audio are outside this suite.",
+  "combinations": 31,
+  "passed": 31,
+  "scenariosPerCombination": 14,
+  "totalScenarioPasses": 434,
+  "scenarios": [
+    "real-bridge-handshake-and-browse",
+    "create-protected-group-and-peer-browse",
+    "wrong-password-no-membership-change",
+    "join-password-and-two-sided-membership",
+    "cancel-settings-draft-does-not-change-server",
+    "settings-save-real-sequential-requests",
+    "leave-confirmation-two-sided-state",
+    "invite-and-peer-join",
+    "member-owner-controls-disabled",
+    "server-rejects-non-owner-settings-request",
+    "kick-ban-rejected-rejoin-unban-two-sided",
+    "real-client-disconnect-reconnect-and-refresh",
+    "transfer-two-sided-ownership",
+    "delete-confirmation-two-sided-removal"
+  ],
+  "results": [
+    {
+      "minecraft": "1.16.5",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.16.5",
+        "build": 794,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "1ffbeff8ca50bcdc7cdaab887f2968ae71368ac2baf8c124e44a4dfe606e06fc",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.16.5",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.16.5",
+        "build": 794,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "d0ed4ecd5a73eb2c741126b4ce2462d6e53970c0db35ee9896b1bc768eb3bc8f",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.17.1",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.17.1",
+        "build": 411,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "cd4bb8f94822611d10d9a6b4e5bfff74d9b2f9d18a9bf50c21c78a2150842923",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.17.1",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.17.1",
+        "build": 411,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "bf4611805f376f618711b7912e8eb3ae213de6c77beb3f86d604bff12c570a4e",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.18.2",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.18.2",
+        "build": 388,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "f2c5a35737699ebca0d977d7bdce06b1e1570700926db04b4def811b5d287e02",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.18.2",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.18.2",
+        "build": 388,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "f1e7cd6816b19600d72f69c42fb688812d27a9c108bb874ea33d3fab86b6ef4a",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.2",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.19.2",
+        "build": 307,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "0ba77d6e0ed61e0dc2bd986777f4c4d4007ed99bd3a60dddb493627b61f74f65",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.2",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.19.2",
+        "build": 307,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "c2a843f10dafb0be7796ca9633ca609429877adc2775b4e85b669cd26d906fe3",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.3",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "fabric",
+        "minecraft": "1.19.3",
+        "loader": "0.20.1",
+        "plasmo": "fabric-1.19.3-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "f4e384f956d777d3fe66c654d71699e1d04e865c10bc477079a4289eac650260",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.3",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "forge",
+        "minecraft": "1.19.3",
+        "loader": "44.1.23",
+        "plasmo": "forge-1.19.3-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "51e04d3d6c292e1109fed119cf51b08852b492cf353e3601bd45352a4703a72f",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.4",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.19.4",
+        "build": 550,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "1221efb6dc88c56aa36f3a01735c9d953f4ac9ce64d9e49f2471d520bf0eee65",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.19.4",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.19.4",
+        "build": 550,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "3b2598312ba4b4ccd70118c51a97d53397c56af8b109bcc7e2017d0b675bd647",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.20.1",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.20.1",
+        "build": 196,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "c595ca68b11d2489b7549fdcc7b7499e5e5af4e1f24e7ab1acad47b95944b90d",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.20.1",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.20.1",
+        "build": 196,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "4dc97bdbe3b4186c1ce5154328d2d639c8ff0873fe53d2c5d127cc1f13419355",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.20.4",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.20.4",
+        "build": 499,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "aad99a49592c0d53765edf9340cce0d79405d143e4829ee77d22ac7504edf0c1",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.20.4",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.20.4",
+        "build": 499,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "43f1688b87d5c92bc2d66e82b1b4e1990aeebdee4ffcb0c39b95d65c04284dee",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.1",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.1",
+        "build": 133,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "bad96d9378a6a041a17b21f51bb3ff799f653bc26cd1ae81425d39ce271aca54",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.1",
+      "clientLoader": "forge",
+      "server": {
+        "platform": "forge",
+        "minecraft": "1.21.1",
+        "loader": "52.1.2",
+        "plasmo": "forge-1.21.1-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "cfb804e0c169420c61c4be9eca79fe05744ce9b1793458dbee44c331f0cc34f1",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.1",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.1",
+        "build": 133,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "346be95c06f7f031f7fb69b50869b4cc17a3bbc55e453ee00be1cdffd0d52b95",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.4",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.4",
+        "build": 232,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "b44aca15dd457917a0c10958554b450f4ccce06f05fee0a8015a4a82b46a58c8",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.4",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "neoforge",
+        "minecraft": "1.21.4",
+        "loader": "21.4.161",
+        "plasmo": "neoforge-1.21.4-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "d52fc8192380971516696ef11dbcba84f965be1fa42d5cb24dce526c1643aff7",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.8",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "fabric",
+        "minecraft": "1.21.8",
+        "loader": "0.20.1",
+        "plasmo": "fabric-1.21.6-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "25f542cb5021eadcf9c99d934b008a6c87a23af9015455a48678c937421f1846",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.8",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.8",
+        "build": 60,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "8a41dca062155a71f717ad818ddedd3fbb47dcc552b74a5883cbb0276a1c3383",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.11",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.11",
+        "build": 132,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": {
+        "platform": "velocity",
+        "minecraft": "1.21.11",
+        "build": "4.3.1-45",
+        "channel": "STABLE",
+        "plasmo": "Zh4xxdjc",
+        "groups": "IekmKjyq"
+      },
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "72f5d38309b668b2b0323d1d661b42c7795b0a6f0d19f9c93c60da92e0d57480",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "1.21.11",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "1.21.11",
+        "build": 132,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "588439bd746e4e17b85f35d5286fe900840778bccc7f0e26f25952fa2bc41ed3",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.1.2",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "26.1.2",
+        "build": 74,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": {
+        "platform": "bungeecord",
+        "minecraft": "26.1.2",
+        "build": "2107",
+        "channel": "upstream-ci",
+        "plasmo": "44fnPRkZ",
+        "groups": "IekmKjyq"
+      },
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "f751d7c452fffe85e82929bfe1ef40b1eedb2aa7fa31527e6e4e189910a8400c",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.1.2",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "26.1.2",
+        "build": 74,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "6b8a7e899dab2765c3ffbdb1f65c8d7c1e3603679abe34cd51541921604fbd96",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.2",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "paper",
+        "minecraft": "26.2",
+        "build": 135,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "c8d798bec8acb49ecd0f27443cb0feaf43993a63ab210892c048a9b612391700",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.2",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "paper",
+        "minecraft": "26.2",
+        "build": 135,
+        "channel": "STABLE",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "a7822a770850dc41969b98b1fc8b9d0ee9d366b15040b5a07c58b1b54dd38d32",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.3",
+      "clientLoader": "fabric",
+      "server": {
+        "platform": "folia",
+        "minecraft": "26.3",
+        "build": 5,
+        "channel": "ALPHA",
+        "plasmo": "DySKquus",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "0d98d1ef471efc1df65948072d84ca55251b9288362c725007a981a17c85c2d2",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    },
+    {
+      "minecraft": "26.3",
+      "clientLoader": "neoforge",
+      "server": {
+        "platform": "neoforge",
+        "minecraft": "26.3",
+        "loader": "26.3.0.99",
+        "plasmo": "neoforge-26.3-2.1.17",
+        "groups": "IekmKjyq"
+      },
+      "proxy": null,
+      "bridgeSha256": "6d67880289a73f542b6432287661378d3414645b9249ae7db4e866b0ac81596c",
+      "clientArtifactSha256": "7838df9b5e0cac38f7b21c9b323c1f5a9aff5e6ee583bbe50735f6fab4d0b231",
+      "installedBridgeVerified": true,
+      "bothInstalledClientsVerified": true,
+      "scenarios": 14
+    }
+  ]
+}

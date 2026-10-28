@@ -34,10 +34,10 @@ jobs:
           cache-dependency-path: tools/requirements-test.txt
       - name: Install test dependencies
         run: python -m pip install --target build/matrix-deps -r tools/requirements-test.txt
-      - name: Test Python runners and local installer
-        run: python -m unittest discover -s tools -p "test_*.py" -v
       - name: Build all artifacts and run Gradle checks
         run: ./gradlew.bat check assembleArtifacts :client-ui:matrixTestAgent -PwithClient=true -PsyncLocalTest=false --no-daemon --stacktrace
+      - name: Test Python runners and local installer
+        run: python -m unittest discover -s tools -p "test_*.py" -v
       - name: Upload installable artifacts
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

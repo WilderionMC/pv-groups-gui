@@ -1,5 +1,7 @@
 # PV Groups GUI
 
+[![CI](https://github.com/WilderionMC/pv-groups-gui/actions/workflows/ci.yml/badge.svg)](https://github.com/WilderionMC/pv-groups-gui/actions/workflows/ci.yml)
+
 A client interface for [pv-addon-groups](https://github.com/plasmoapp/pv-addon-groups).
 Players can browse, create and join voice groups, invite friends and manage members.
 
@@ -126,6 +128,22 @@ Build only the server JAR:
 ```powershell
 .\gradlew.bat :dist-server:shadowJar --no-daemon
 ```
+
+## Continuous integration
+
+[GitHub Actions](https://github.com/WilderionMC/pv-groups-gui/actions/workflows/ci.yml)
+runs on pushes and pull requests, and can also be started manually. The Windows job
+builds all installable JARs and runs Gradle checks and Python regression tests.
+A separate Ubuntu job runs the Fabric 26.2 client game tests in a virtual display
+with software rendering. Failed jobs fail the workflow.
+
+Each run saves the installable JARs and checksums, check reports, game logs and UI
+screenshots as workflow artifacts for 14 days. CI disables local installation with
+`-PsyncLocalTest=false`. It does not publish releases or deploy to a server.
+
+The 31-combination real bridge suite remains a separate Windows test run with the
+JDKs, graphical clients and accepted EULA described below. It is not rerun by this
+CI workflow; the dated verification snapshot records its completed results.
 
 ## Local testing
 

@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and automated checks
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/requirements-test.txt
+      - name: Install test dependencies
+        run: python -m pip install --target build/matrix-deps -r tools/requirements-test.txt
+      - name: Test Python runners and local installer
+        run: python -m unittest discover -s tools -p "test_*.py" -v
+      - name: Build all artifacts and run Gradle checks
+        run: ./gradlew.bat check assembleArtifacts :client-ui:matrixTestAgent -PwithClient=true -PsyncLocalTest=false --no-daemon --stacktrace
+      - name: Upload installable artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pv-groups-gui-jars
+          path: build/artifacts/plasmo-ui/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload check reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: check-reports
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  client-ui:
+    name: Fabric 26.2 client game tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      LIBGL_ALWAYS_SOFTWARE: 'true'
+      ALSOFT_DRIVERS: 'null'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+          cache-read-only: ${{ github.event_name == 'pull_request' }}
+      - name: Install virtual display and software rendering
+        run: sudo apt-get update && sudo apt-get install -y xvfb xauth mesa-utils libgl1-mesa-dri libasound2t64
+      - name: Run client game tests
+        run: xvfb-run -a -s "-screen 0 1280x1024x24" bash ./gradlew :client-ui:runClientGameTest -PwithClient=true -PsyncLocalTest=false --no-daemon --stacktrace
+      - name: Upload game test evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: fabric-26.2-game-test-evidence
+          path: |
+            client-ui/build/run/clientGameTest/screenshots/
+            client-ui/build/run/clientGameTest/logs/
+            client-ui/build/run/clientGameTest/crash-reports/
+            client-ui/build/reports/
+          if-no-files-found: ignore
+          retention-days: 14

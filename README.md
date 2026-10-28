@@ -132,8 +132,9 @@ Build only the server JAR:
 ## Continuous integration
 
 [GitHub Actions](https://github.com/WilderionMC/pv-groups-gui/actions/workflows/ci.yml)
-runs on pushes and pull requests, and can also be started manually. The Windows job
-builds all installable JARs and runs Gradle checks and Python regression tests.
+runs on pushes and pull requests, and can also be started manually. An Ubuntu job
+builds all installable JARs and runs Gradle checks. A Windows job downloads those
+JARs and runs the Python runner and installer regression tests.
 A separate Ubuntu job runs the Fabric 26.2 client game tests in a virtual display
 with software rendering. Failed jobs fail the workflow.
 
